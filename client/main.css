@@ -3,7 +3,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   color: white;
-  background: #333;
+  background: #161523;
 }
 
 h1{
@@ -11,25 +11,15 @@ h1{
 }
 
 div.header {
-    border: dashed 1px rgba(#000, 0.5);
-    padding: 20px 0;
+    padding: 20px;
     margin: 20px;
-    text-align: center;
-    border-radius: 5px;
-    background-color: #606060;
-  }
+    text-align: left;
+    background-color: #21202E;
+}
 
 div.action {
   font-family: 'Kanit:400', sans-serif;
   width: 60%;
-}
-
-.jqUploadclass {
-  cursor: pointer; /* "hand" cursor */
-}
-
-.inputfile + label {
-  cursor: pointer; /* "hand" cursor */
 }
 
 small {
@@ -77,7 +67,7 @@ img {
 
 .start {
     color: #fff;
-    background-color: #1abc9c;
+    background-color: #5ABAC8;
     padding: 10px 15px;
     font-size: 15px;
     font-weight: normal;
@@ -86,15 +76,23 @@ img {
     border-radius: 4px;
     transition: border .25s linear, color .25s linear, background-color .25s linear;
     -webkit-font-smoothing: subpixel-antialiased;
+  }
+
+.leftButton {
+    color: #fff;
+    background-color: #5ABAC8;
+    padding: 10px 15px;
+    cursor: pointer;
+    vertical-align: center;
 }
 
-#Upload {
+#upload {
     color: #fff;
     width: 80%;
-    border: dashed 1px rgba(#000, 0.5);
     padding: 40px 0;
     margin: 20px;
     text-align: center;
+    cursor: pointer;
 }
 
 input {
@@ -104,4 +102,20 @@ input {
     margin: 20px;
     text-align: center;
     color: white;
+}
+
+.login-link-text {
+  color: #9E3722;
+  font-family: 'Roboto:900', sans-serif;
+}
+
+.entryway {
+  text-align: center;
+}
+
+.aboutText {
+    padding: 20px;
+    margin: 20px;
+    text-align: left;
+    background-color: #21202E;
 }

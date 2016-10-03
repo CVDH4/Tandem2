@@ -5,53 +5,12 @@ import './main.html';
 
 Resolutions = new Mongo.Collection('resolutions');
 
-Template.body.helpers({
-	resolutions: function() {
-		return Resolutions.find();
-	}
-});
-
-Template.body.events({
-	'submit .new-resolution': function(event) {
-		var title = event.target.title.value;
-
-		Resolutions.insert({
-			title: title,
-			createdAt : new Date()
-		});
-
-		event.target.title.value = "";
-
-		return false;
-	}
-});
-
 Accounts.ui.config({
 	passwordSignupFields: "USERNAME_ONLY"
 });
 
 Meteor.startup(function() {
   Uploader.uploadUrl = Meteor.absoluteUrl("Upload"); // Cordova needs absolute URL
-});
-
-var img = document.createElement('img');
-img.setAttribute('src', 'Tandem2.uploads/tmp/AlphabetBook_Page_09.jpg')
-
-img.addEventListener('load', function() {
-    var vibrant = new Vibrant(img);
-    var swatches = vibrant.swatches()
-    for (var swatch in swatches)
-        if (swatches.hasOwnProperty(swatch) && swatches[swatch])
-            console.log(swatch, swatches[swatch].getHex())
-
-    /*
-     * Results into:
-     * Vibrant #7a4426
-     * Muted #7b9eae
-     * DarkVibrant #348945
-     * DarkMuted #141414
-     * LightVibrant #f3ccb4
-     */
 });
 
 var dropZone, handleDragOver, handleFileSelect;
@@ -108,13 +67,6 @@ handleDragOver = function(event) {
 dropZone.addEventListener("dragover", handleDragOver, false);
 
 dropZone.addEventListener("drop", handleFileSelect, false);
-
-
-var vibrant = new Vibrant(img);
-var swatches = vibrant.swatches()
-for (var swatch in swatches)
-    if (swatches.hasOwnProperty(swatch) && swatches[swatch])
-        console.log(swatch, swatches[swatch].getHex());
 
 
 
