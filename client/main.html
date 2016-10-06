@@ -1,14 +1,15 @@
 <head>
+  <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+  <script src="semantic/dist/semantic.min.js"></script>
   <title>TANDEM</title>
-    <style>
-      @import 'https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto:300,900';
-    </style>
+    <style>@import 'https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto:300,900';</style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="header">
+  <div class="ui container">
+    <div class="ui header">
       <h1>Welcome to TANDEM 2.0</h1>
+      <button class="ui button">Follow</button>
     </div>
     
     <div class="entryway">
@@ -16,11 +17,11 @@
     </div>
 
 <!-- This is the upload template. -->
-  {{ #if currentUser }}
+  {{#if currentUser}}
     <div id="upload">
-      {{> yourTemplate }}
+      {{> yourTemplate}}
     </div>
-  {{ /if }}
+  {{/if}}
 
     <div class="aboutText">
       <p>TANDEM is an application that generates quantitative image and text data from files submitted by the user. The TANDEM output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
@@ -37,7 +38,7 @@
 </template>
 
 <template name="yourTemplate">
-    {{> upload_semanticUI }}
+    {{> upload_semanticUI multiple=true }}
 </template>
 
 <template name="customUpload">
