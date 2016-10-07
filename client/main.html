@@ -6,36 +6,44 @@
 </head>
 
 <body>
-  <div class="ui container">
-    <div class="ui header">
-      <h1>Welcome to TANDEM 2.0</h1>
-      <button class="ui button">Follow</button>
-    </div>
-    
-    <div class="entryway">
-      {{> loginButtons }}
-    </div>
 
-<!-- This is the upload template. -->
-  {{#if currentUser}}
-    <div id="upload">
-      {{> yourTemplate}}
-    </div>
-  {{/if}}
+      <div class="ui container">
+        <div class="ui header">
+          <h1>TANDEM</h1>
+        </div>
+      </div>
 
-    <div class="aboutText">
-      <p>TANDEM is an application that generates quantitative image and text data from files submitted by the user. The TANDEM output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
-    </div>
+    <!-- This is the login block. -->
+      <div class="ui container">
+        <div class="ui secondary pointing menu">
+            <a class="active item">
+              Welcome
+            </a>
+            <a class="item">
+              {{> loginButtons }}
+            </a>
+          </div>
+        </div>
 
-  </div>
-  
+    <!-- This is the upload template. -->
+        {{#if currentUser}}
+      <div class="ui container padded segment">
+          <div id="upload">
+            {{> yourTemplate}}
+          </div>
+        </div>
+        {{/if}}
+
+      <div class="ui container segment">
+            <h4 class="ui horizontal divider header">
+                <i class="tag icon"></i>
+                Description
+            </h4>
+            <p>TANDEM is an application that generates quantitative image and text data from files submitted by the user.</p>
+            <p>The TANDEM output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
+        </div>
+
 </body>
-
-<template name="resolution">
-  <li>
-    {{title}} 
-  </li>
-</template>
 
 <template name="yourTemplate">
     {{> upload_semanticUI multiple=true }}
@@ -54,4 +62,8 @@
             </div>
         {{/with}}
     </form>
+</template>
+
+<template name="quantify">
+  <button class="ui button">Quantify</button>
 </template>

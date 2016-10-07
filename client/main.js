@@ -12,3 +12,12 @@ Accounts.ui.config({
 Meteor.startup(function() {
   Uploader.uploadUrl = Meteor.absoluteUrl("Upload");
 });
+
+// Experimenting with image stuff
+
+var corpus = imgpath(/tmp/AlphabetBook_Page_09.jpg);
+
+Meteor.startup(function() {
+	PixelMilk.getImageSize(corpus);
+	PixelMilk.getImagePalette(corpus);
+});
