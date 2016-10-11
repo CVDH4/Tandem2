@@ -14,10 +14,3 @@ Meteor.startup(function() {
 });
 
 // Experimenting with image stuff
-
-var corpus = imgpath(/tmp/AlphabetBook_Page_09.jpg);
-
-Meteor.startup(function() {
-	PixelMilk.getImageSize(corpus);
-	PixelMilk.getImagePalette(corpus);
-});

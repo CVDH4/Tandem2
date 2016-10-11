@@ -7,3 +7,4 @@ Meteor.startup(function () {
     checkCreateDirectories: true //create the directories for you
   });
 });
+

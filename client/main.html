@@ -6,8 +6,8 @@
 </head>
 
 <body>
-
       <div class="ui container">
+        <div class="ui header"></div>
         <div class="ui header">
           <h1>TANDEM</h1>
         </div>
@@ -17,9 +17,10 @@
       <div class="ui container">
         <div class="ui secondary pointing menu">
             <a class="active item">
-              Welcome
+              <i class="home icon"></i>Welcome
             </a>
             <a class="item">
+              <i class="user icon"></i>
               {{> loginButtons }}
             </a>
           </div>
@@ -62,8 +63,4 @@
             </div>
         {{/with}}
     </form>
-</template>
-
-<template name="quantify">
-  <button class="ui button">Quantify</button>
 </template>
