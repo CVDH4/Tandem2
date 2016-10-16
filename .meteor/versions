@@ -61,7 +61,6 @@ modules@0.7.6
 modules-runtime@0.7.6
 mongo@1.1.12
 mongo-id@1.0.5
-moooji:pixelmilk@0.10.8
 npm-bcrypt@0.9.1
 npm-mongo@1.5.48
 oauth@1.1.11
