@@ -14,7 +14,7 @@
       </div>
 
     <!-- This is the login block. -->
-      <div class="ui container">
+      <div class="ui container padded segment">
         <div class="ui secondary pointing menu">
             <a class="active item">
               <i class="home icon"></i>Welcome
@@ -24,7 +24,7 @@
               {{> loginButtons }}
             </a>
           </div>
-        </div>
+      </div>
 
     <!-- This is the upload template. -->
         {{#if currentUser}}
@@ -32,7 +32,7 @@
           <div id="upload">
             {{> yourTemplate}}
           </div>
-        </div>
+      </div>
         {{/if}}
 
       <div class="ui container segment">
@@ -42,7 +42,18 @@
             </h4>
             <p>TANDEM is an application that generates quantitative image and text data from files submitted by the user.</p>
             <p>The TANDEM output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
-        </div>
+      </div>  
+
+      <div class="ui container segment">
+        <h1>Corpus Files</h1>
+        <p>You uploaded the following files for analysis:</p>
+          <ul>
+            {{#each imageFiles}}
+              {{> yourCorpus}}
+            {{/each}}
+          </ul>
+      </div>
+
 </body>
 
 <template name="yourTemplate">
@@ -62,4 +73,8 @@
             </div>
         {{/with}}
     </form>
+</template>
+
+<template name="yourCorpus">
+    <li>{{ imageFile }}</li>
 </template>

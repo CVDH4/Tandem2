@@ -12,6 +12,9 @@
     }
   },
   "dependencies": {
-    "meteor-node-stubs": "^0.2.3"
+    "bcrypt": "^0.8.7",
+    "meteor-node-stubs": "^0.2.3",
+    "node-fs": "^0.1.7",
+    "tesseract.js": "^1.0.10"
   }
 }
