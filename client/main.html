@@ -26,12 +26,23 @@
           </div>
       </div>
 
-    <!-- This is the upload template. -->
+    <!-- This is version 1 of the upload template. -->
         {{#if currentUser}}
       <div class="ui container padded segment">
           <div id="upload">
-            {{> yourTemplate}}
+            {{> uploadTemplate}}
+            <br>
+            <p margin="10px" align="center">or</p>
+
+            {{> dragDrop}}
           </div>
+      </div>
+
+       <div class="ui container segment">
+        <h3>Uploaded Following Files</h3>
+            <p>
+                {{> uploadedInfo uploads }}
+            </p>
       </div>
         {{/if}}
 
@@ -44,7 +55,13 @@
             <p>The TANDEM output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
       </div>  
 
-      <div class="ui container segment">
+   
+
+     <!--  <div class="ui container segment">
+          <canvas id="myChart" width="500" height="500"></canvas>
+      </div>
+ -->
+      <!-- <div class="ui container segment">
         <h1>Corpus Files</h1>
         <p>You uploaded the following files for analysis:</p>
           <ul>
@@ -52,11 +69,11 @@
               {{> yourCorpus}}
             {{/each}}
           </ul>
-      </div>
+      </div> -->
 
 </body>
 
-<template name="yourTemplate">
+<template name="uploadTemplate">
     {{> upload_semanticUI multiple=true }}
 </template>
 
@@ -78,3 +95,27 @@
 <template name="yourCorpus">
     <li>{{ imageFile }}</li>
 </template>
+
+<template name="dragDrop">
+    {{> dropzone }}
+</template>
+
+<template name="uploadedInfo">
+    <div class="documentList">
+        <ul class="list-inline">
+            {{#each this}}
+                <li class="documentItem">
+                    <a href="/uploads/{{path}}"><img src="{{src}}"></a><br/>
+                    <label>{{ name }}</label> <br/>
+                    {{ size }} B<br>
+                    {{#if _id}}
+                        <a class="btn btn-danger deleteUpload">Delete</a>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</template>
+
+<!-- Original Author: @VeliovGroup - https://github.com/VeliovGroup/Meteor-Files -->
+

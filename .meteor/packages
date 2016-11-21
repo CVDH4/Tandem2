@@ -29,3 +29,7 @@ accounts-ui
 accounts-github
 accounts-twitter
 accounts-google
+ostrio:files
+chart:chart
+ostrio:autoform-files
+ostrio:templatehelpers

@@ -1,1 +1,65 @@
 /* This is where my CSS would go if I needed it. */
+
+.jqDropZone {
+    background: lightgrey;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+
+}
+.jqDropZone.in {
+    width: 600px;
+    height: 200px;
+    line-height: 200px;
+    font-size: larger;
+    border-radius: 5px;
+}
+.jqDropZone.hover {
+    background: #2185D0;
+}
+.jqDropZone.fade {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+}
+
+/* HOME Template */
+
+.documentList
+{
+    overflow-x:auto;
+    overflow-y:hidden;
+    height:260px;
+    width:100%;
+    padding: 0 15px;
+}
+
+.documentItem
+{
+    border:1px solid black;
+    padding:0;
+    height:230px;
+    width: 200px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.documentItem label {
+    font-size: x-small;
+}
+
+.documentItem img
+{
+    max-width: 180px;
+    max-height: 140px;
+}
+
+.list-inline {
+    white-space:nowrap;
+}
