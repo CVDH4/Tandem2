@@ -68,18 +68,45 @@ Template.uploadedInfo.events({
 
 Meteor.startup(function() {
   var img = new Image();
-  img.src = 'http://placekitten.com/2000/500';
+  img.src = '../images/space-header.jpg';
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
   img.onload = function() {
     ctx.drawImage(img, 0, 0);
+    ctx.createImageData(600, 500);
     img.style.display = 'none';
+
+    console.log("Height = " + img.height);
+    console.log("Width = " + img.width);
+    console.log("Total Pixels = " + img.width * img.height);
+    console.log(ctx.createImageData(600, 500))
+
   };
 
-  document.getElementById('canvas').innerHTML = img.height;
-  document.getElementById('canvas').innerHTML = img.width;
+  function addElement () { 
+    var newDiv = document.createElement("div"); 
+    var newContent = document.createTextNode("Hi there and greetings!");
+      // document.createTextNode("Height = " + img.height);
+      // document.createTextNode("Width = " + img.width);
+      // document.createTextNode("Total Pixels = " + img.width * img.height);
+    newDiv.appendChild(newContent); 
+    //add the text node to the newly created div. 
+    // add the newly created element and its content into the DOM 
+    var currentDiv = document.getElementById("div1"); 
+    document.body.insertBefore(newDiv, currentDiv); 
+  };
 
-  console.log(img.height);
-  console.log(img.width);
+  var color = document.getElementById('color');
+    function pick(event) {
+      var x = event.layerX;
+      var y = event.layerY;
+      var pixel = ctx.getImageData(x, y, 1, 1);
+      var data = pixel.data;
+      var rgba = 'rgba(' + data[0] + ',' + data[1] +
+                 ',' + data[2] + ',' + (data[3] / 255) + ')';
+      color.style.background =  rgba;
+      color.textContent = rgba;
+    }
+    canvas.addEventListener('mousemove', pick);
 
 });

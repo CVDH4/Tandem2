@@ -95,3 +95,9 @@ progress {
 progress[value="1"] {
   opacity: 0.5;
 }
+
+#color {
+  color: white;
+  display: block;
+  padding: 0.5em;
+}
