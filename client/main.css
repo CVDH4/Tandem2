@@ -1,4 +1,4 @@
-/* This is where my CSS would go if I needed it. */
+/* This is where my CSS lives. */
 
 .jqDropZone {
     background: lightgrey;
@@ -62,4 +62,36 @@
 
 .list-inline {
     white-space:nowrap;
+}
+
+/* Tesseract OCR Test Area*/
+#log > div {
+  color: #313131;
+  border-top: 1px solid #dadada;
+  padding: 9px;
+  display: flex;
+}
+#log > div:first-child {
+  border: 0;
+}
+.status {
+min-width: 250px;
+}
+#log {
+  border: 1px solid #dadada;
+  padding: 10px;
+  margin-top: 20px;
+  min-height: 100px;
+}
+body {
+  font-family: sans-serif;
+  margin: 30px;
+}
+progress {
+  display: block;
+  width: 100%;
+  transition: opacity 0.5s linear;
+}
+progress[value="1"] {
+  opacity: 0.5;
 }

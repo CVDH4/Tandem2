@@ -1,8 +1,8 @@
 <head>
   <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-  <script src="semantic/dist/semantic.min.js"></script>
+  <!-- // <script src="../Chart.js"></script> -->
   <title>TANDEM</title>
-    <style>@import 'https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto:300,900';</style>
+  <style>@import 'https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto:300,900';</style>
 </head>
 
 <body>
@@ -11,7 +11,7 @@
         <div class="ui header">
           <h1>TANDEM</h1>
         </div>
-      </div>
+      </div>   
 
     <!-- This is the login block. -->
       <div class="ui container padded segment">
@@ -26,78 +26,59 @@
           </div>
       </div>
 
-    <!-- This is version 1 of the upload template. -->
+    <!-- This is what appears when you login. -->
         {{#if currentUser}}
       <div class="ui container padded segment">
           <div id="upload">
             {{> uploadTemplate}}
             <br>
             <p margin="10px" align="center">or</p>
-
-            {{> dragDrop}}
+            {{> dropzone formData=myFormData }}
           </div>
       </div>
 
-       <div class="ui container segment">
-        <h3>Uploaded Following Files</h3>
-            <p>
-                {{> uploadedInfo uploads }}
-            </p>
+      <div class="ui container padded segment">
+        <p>Uploaded Files</p>
+          {{> uploadedInfo uploads }}
       </div>
         {{/if}}
 
       <div class="ui container segment">
-            <h4 class="ui horizontal divider header">
-                <i class="tag icon"></i>
-                Description
-            </h4>
-            <p>TANDEM is an application that generates quantitative image and text data from files submitted by the user.</p>
-            <p>The TANDEM output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
+          <select id="langsel" onchange="window.lastFile && recognizeFile(window.lastFile)">
+          <option value='eng'     selected> English                </option>
+          <option value='enm'     > English (Old)         </option>
+          <option value='meme'     > Internet Meme                </option>
+          <option value='equ'     > Math                  </option>
+          <option value='spa'     > Spanish               </option>
+          </select>
+
+          <button class="ui labeled icon button" onclick="recognizeFile('/.uploads/WHT_Mockups.pdf')">
+            <i class="right arrow icon"></i>
+                Extract OCR Data
+          </button>
+
+          <input type="file" onchange="recognizeFile(window.lastFile=this.files[0])">
+
+          <div id="log"></div>
       </div>  
 
-   
-
-     <!--  <div class="ui container segment">
-          <canvas id="myChart" width="500" height="500"></canvas>
+      <div class="ui container segment">
+            <h4 class="ui horizontal divider header"><i class="tag icon"></i>Description</h4>
+            <p>TANDEM is an application that generates quantitative image and text data from files submitted by the user.</p>
+            <p>The TANDEM output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
       </div>
- -->
-      <!-- <div class="ui container segment">
-        <h1>Corpus Files</h1>
-        <p>You uploaded the following files for analysis:</p>
-          <ul>
-            {{#each imageFiles}}
-              {{> yourCorpus}}
-            {{/each}}
-          </ul>
-      </div> -->
-
+      
+      <div class="ui container segment">
+          <canvas id="canvas" width="500" height="500" style="float:left"></canvas>
+          <div id="color" style="width:200px;height:50px;float:left"></div> 
+          <div id="stats"></div>
+      </div>
 </body>
+
+<!-- Meteor Templates Start -->
 
 <template name="uploadTemplate">
     {{> upload_semanticUI multiple=true }}
-</template>
-
-<template name="customUpload">
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" class="jqUploadclass" data-form-data='{{ submitData }}'>
-        {{#with infoLabel}}
-            {{ infoLabel}} 
-                <button class="start">Upload</button>
-                <div style="width: 200px; height: 30px; border: 1px solid black">
-                <div style="background: red; height: 30px; width: {{ progress }}">
-                    {{ progress }}
-                </div>
-            </div>
-        {{/with}}
-    </form>
-</template>
-
-<template name="yourCorpus">
-    <li>{{ imageFile }}</li>
-</template>
-
-<template name="dragDrop">
-    {{> dropzone }}
 </template>
 
 <template name="uploadedInfo">
@@ -105,9 +86,9 @@
         <ul class="list-inline">
             {{#each this}}
                 <li class="documentItem">
-                    <a href="/uploads/{{path}}"><img src="{{src}}"></a><br/>
-                    <label>{{ name }}</label> <br/>
-                    {{ size }} B<br>
+                    <a href=".uploads/{{ path }}"><img src="{{ src }}"></a><br/>
+                    <label>{{> name }}</label> <br/>
+                    {{> size }} B<br>
                     {{#if _id}}
                         <a class="btn btn-danger deleteUpload">Delete</a>
                     {{/if}}
@@ -117,5 +98,51 @@
     </div>
 </template>
 
-<!-- Original Author: @VeliovGroup - https://github.com/VeliovGroup/Meteor-Files -->
+<!-- Meteor Templates End -->
 
+
+<!-- SANDBOX Start -->
+<!-- 
+      <div class="ui container segment">
+        <div align="center" style="width:50%">
+          <canvas id="canvas2" height="450" width="600"></canvas>
+        </div>
+      </div>
+
+      //<script>
+      //     var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+      //     var lineChartData = {
+      //       labels : ["January","February","March","April","May","June","July"],
+      //       datasets : [
+      //         {
+      //           label: "My First dataset",
+      //           fillColor : "rgba(220,220,220,0.2)",
+      //           strokeColor : "rgba(220,220,220,1)",
+      //           pointColor : "rgba(220,220,220,1)",
+      //           pointStrokeColor : "#fff",
+      //           pointHighlightFill : "#fff",
+      //           pointHighlightStroke : "rgba(220,220,220,1)",
+      //           data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+      //         },
+      //         {
+      //           label: "My Second dataset",
+      //           fillColor : "rgba(151,187,205,0.2)",
+      //           strokeColor : "rgba(151,187,205,1)",
+      //           pointColor : "rgba(151,187,205,1)",
+      //           pointStrokeColor : "#fff",
+      //           pointHighlightFill : "#fff",
+      //           pointHighlightStroke : "rgba(151,187,205,1)",
+      //           data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),
+      //           randomScalingFactor()]
+      //         }
+      //       ]
+      //     }
+      //   window.onload = function(){
+      //     var ctx = document.getElementById("canvas2").getContext("2d");
+      //     window.myLine = new Chart(ctx).Line(lineChartData, {
+      //       responsive: true
+      //     });
+      //   }
+      // </script> -->
+
+<!-- SANDBOX END -->
