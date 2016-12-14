@@ -68,20 +68,43 @@ Template.uploadedInfo.events({
 
 Meteor.startup(function() {
   var img = new Image();
-  img.src = '../images/space-header.jpg';
+  img.src = '../images/placekitten.jpeg';
+
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
+  var imageData = img.data;
+  var pixels = (0, 0, 10000, 10000);
+  var r, g, b, a;
+
   img.onload = function() {
     ctx.drawImage(img, 0, 0);
-    ctx.createImageData(600, 500);
+    ctx.createImageData(10000, 10000);
     img.style.display = 'none';
 
+    console.log(img.src);
     console.log("Height = " + img.height);
     console.log("Width = " + img.width);
     console.log("Total Pixels = " + img.width * img.height);
-    console.log(ctx.createImageData(600, 500))
+
+    document.getElementById("stats").innerHTML = (img.src);
+    document.getElementById("imageHeight").innerHTML = (img.height);
+    document.getElementById("imageWidth").innerHTML = (img.width);
+    document.getElementById("imageTotalPixels").innerHTML = (img.width * img.height);
+
+    while(--pixels){
+       imageData[4*pixels+0] = r; // Red value
+       imageData[4*pixels+1] = g; // Green value
+       imageData[4*pixels+2] = b; // Blue value
+       imageData[4*pixels+3] = a; // Alpha value
+    }
+    img.data = imageData; // And here we attache it back (not needed cf. update)
+    context.putImageData(image, 0, 0);
+
+    console.log(imageData);
 
   };
+
+document.body.onload = addElement;
 
   function addElement () { 
     var newDiv = document.createElement("div"); 
@@ -100,7 +123,7 @@ Meteor.startup(function() {
     function pick(event) {
       var x = event.layerX;
       var y = event.layerY;
-      var pixel = ctx.getImageData(x, y, 1, 1);
+      var pixel = ctx.getImageData(x, y, 5, 5);
       var data = pixel.data;
       var rgba = 'rgba(' + data[0] + ',' + data[1] +
                  ',' + data[2] + ',' + (data[3] / 255) + ')';

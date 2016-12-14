@@ -1,5 +1,4 @@
 /* This is where my CSS lives. */
-
 .jqDropZone {
     background: lightgrey;
     width: 100%;
@@ -8,7 +7,6 @@
     text-align: center;
     font-weight: bold;
     border-radius: 5px;
-
 }
 .jqDropZone.in {
     width: 600px;
@@ -28,9 +26,7 @@
     transition: all 0.3s ease-out;
     opacity: 1;
 }
-
 /* HOME Template */
-
 .documentList
 {
     overflow-x:auto;
@@ -39,7 +35,6 @@
     width:100%;
     padding: 0 15px;
 }
-
 .documentItem
 {
     border:1px solid black;
@@ -49,22 +44,17 @@
     overflow: hidden;
     text-align: center;
 }
-
 .documentItem label {
     font-size: x-small;
 }
-
 .documentItem img
 {
     max-width: 180px;
     max-height: 140px;
 }
-
 .list-inline {
     white-space:nowrap;
 }
-
-/* Tesseract OCR Test Area*/
 #log > div {
   color: #313131;
   border-top: 1px solid #dadada;
@@ -76,6 +66,11 @@
 }
 .status {
 min-width: 250px;
+}
+#color {
+  color: white;
+  display: block;
+  padding: 0.5em;
 }
 #log {
   border: 1px solid #dadada;
@@ -94,10 +89,4 @@ progress {
 }
 progress[value="1"] {
   opacity: 0.5;
-}
-
-#color {
-  color: white;
-  display: block;
-  padding: 0.5em;
 }
