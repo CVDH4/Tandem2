@@ -37,10 +37,10 @@
           </div>
       </div>
 
-      <div class="ui container padded segment">
+      <!-- <div class="ui container padded segment">
         <p>Uploaded Files</p>
           {{> uploadedInfo uploads }}
-      </div>
+      </div> -->
         {{/if}}
 
       <div class="ui container segment">
@@ -63,21 +63,24 @@
       </div>  
 
       <div class="ui container segment">
-            <h4 class="ui horizontal divider header"><i class="tag icon"></i>Description</h4>
-            <p>TANDEM is an application that generates quantitative image and text data from files submitted by the user.</p>
-            <p>The TANDEM output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
-      </div>
-
-      <div class="ui container segment">
           <div id="color" style="align: center; width: 100%;"></div> 
       </div>
       
       <div class="ui container segment">
           <div id="div1">The text above has been created dynamically.</div>
           <canvas id="canvas" width="600" height="600"></canvas>
-          <div id="stats"></div>
+
+              <canvas id="myCanvas" width="600px" height="600px"></canvas>
+              <div id="code"></div>
+          
           <div id="imageStats">
-            <div class="ui statistic">
+            <div class="ui tiny statistic">
+              <div class="value">
+                <div id="stats"></div>
+              </div>
+              <div class="label">
+                Name: 
+              </div>
               <div class="value">
                 <div id="imageHeight"></div>
               </div>
@@ -99,10 +102,13 @@
                 Pixels
               </div>
             </div>
-              <div id="imageHeight"></div>
-              <div id="imageWidth"></div>
-              <div id="imageTotalPixels"></div>
           </div>
+      </div>
+
+      <div class="ui container segment">
+            <h4 class="ui horizontal divider header"><i class="tag icon"></i>Description</h4>
+            <p>TANDEM is an application that generates quantitative image and text data from files submitted by the user.</p>
+            <p>The TANDEM output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
       </div>
 
 </body>
