@@ -81,6 +81,7 @@ min-width: 250px;
 body {
   font-family: sans-serif;
   margin: 30px;
+  background-color: 3D3E3F;
 }
 progress {
   display: block;
@@ -89,4 +90,10 @@ progress {
 }
 progress[value="1"] {
   opacity: 0.5;
+}
+#code {
+    qmax-width:100%;
+    min-height:200px;    
+    display:block;
+    width:100%;
 }

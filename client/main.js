@@ -76,15 +76,18 @@ Meteor.startup(function() {
   var pixels = (0, 0, 600, 600);
   var r, g, b, a;
 
+  var fileNameGrabber = (img.src).split("/");
+  var fileName = fileNameGrabber[fileNameGrabber.length - 1];
+
   img.onload = function() {
     ctx.drawImage(img, 0, 0);
     ctx.createImageData(600, 600);
     img.style.display = 'none';
 
-    document.getElementById("stats").innerHTML = (img.src);
-    document.getElementById("imageHeight").innerHTML = (img.height);
-    document.getElementById("imageWidth").innerHTML = (img.width);
-    document.getElementById("imageTotalPixels").innerHTML = (img.width * img.height);
+    document.getElementById("filename").innerHTML = (fileName);
+    document.getElementById("imageHeight").innerHTML = (img.naturalHeight);
+    document.getElementById("imageWidth").innerHTML = (img.naturalWidth);
+    document.getElementById("imageTotalPixels").innerHTML = (img.naturalWidth * img.naturalHeight);
 
     while(pixels){
        imageData[4*pixels+0] = r; // Red value
@@ -150,11 +153,19 @@ function drawImage(imageObj) {
       var green = data[i + 1];
       var blue = data[i + 2];
       var alpha = data[i + 3];
-       pixels[pixel] = red + " " + green + " " + blue + " ";
+       pixels[pixel] = red + "," + green + "," + blue + ",";
        pixel++; 
     }
 
-    codepanel.innerHTML =  pixels.join(); //my addition
+    var averageRed = 0;
+    for(var i = 0; i < red.length; i++) {
+        averageRed += red[i];
+    }
+    var avg = averageRed / red.length;
+
+    console.log(avg);
+
+    // codepanel.innerHTML = pixels.join();
 
     var x = 20;
     var y = 20;
@@ -193,3 +204,6 @@ function drawImage(imageObj) {
 
     link.click(); // This will download the data file named "my_data.csv".
 });
+
+// - - - - - - OCR - - - - - - //
+

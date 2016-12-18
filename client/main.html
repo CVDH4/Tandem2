@@ -5,17 +5,13 @@
   <style>@import 'https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto:300,900';</style>
 </head>
 
-<body>
-      <div class="ui container">
-        <div class="ui header"></div>
-        <div class="ui header">
-          <h1>TANDEM</h1>
-        </div>
-      </div>   
-
-    <!-- This is the login block. -->
-      <div class="ui container padded segment">
-        <div class="ui secondary pointing menu">
+<body>  
+    <!-- This is the menu block. -->
+      <div class="ui container padded">
+        <div class="ui top fixed menu">
+            <a class="header item">
+              <h1>TANDEM</h1>
+            </a>
             <a class="active item">
               <i class="home icon"></i>Welcome
             </a>
@@ -28,7 +24,7 @@
 
     <!-- This is what appears when you login. -->
         {{#if currentUser}}
-      <div class="ui container padded segment">
+      <div class="ui padded container segment">
           <div id="upload">
             {{> uploadTemplate}}
             <br>
@@ -52,7 +48,7 @@
           <option value='spa'     > Spanish               </option>
           </select>
 
-          <button class="ui labeled icon button" onclick="recognizeFile('/.uploads/WHT_Mockups.pdf')">
+          <button class="ui labeled icon button" onclick="recognizeFile('../images/AlphabetBook_Page_09.jpg')">
             <i class="right arrow icon"></i>
                 Extract OCR Data
           </button>
@@ -60,49 +56,54 @@
           <input type="file" onchange="recognizeFile(window.lastFile=this.files[0])">
 
           <div id="log"></div>
-      </div>  
-
-      <div class="ui container segment">
-          <div id="color" style="align: center; width: 100%;"></div> 
       </div>
       
       <div class="ui container segment">
+          <div class="ui header">
+            Color Picker
+          </div>
+          <p>The first three digits represent the Red (R), Green (G), and Blue (B) values that combine to create the full spectrum of visual color possibilities. These values are measured from 0 to 255. The final digit represents the alpha value, or the level of opacity for the image.</p>
+           <p><i class="help circle icon"></i>Hover over a part of the image to view the color value for that particular pixel.</p>
+          <div id="color" style="border-radius: 5px; width: 100%;"></div> 
+
+          <div class="ui divider"></div>
+
           <div id="div1">The text above has been created dynamically.</div>
           <canvas id="canvas" width="600" height="600"></canvas>
 
-              <canvas id="myCanvas" width="600px" height="600px"></canvas>
+              <canvas id="myCanvas" width="600" height="600"></canvas>
               <div id="code"></div>
-          
-          <div id="imageStats">
-            <div class="ui tiny statistic">
-              <div class="value">
-                <div id="stats"></div>
-              </div>
-              <div class="label">
-                Name: 
-              </div>
-              <div class="value">
-                <div id="imageHeight"></div>
-              </div>
-              <div class="label">
-                Height
-              </div>
 
-              <div class="value">
-                <div id="imageWidth"></div>
-              </div>
-              <div class="label">
-                Width
-              </div>
+      <div id="imageStats"> 
+        <div class="ui header">Image Statistics</div>
 
-              <div class="value">
-                <div id="imageTotalPixels"></div>
-              </div>
-              <div class="label">
-                Pixels
-              </div>
-            </div>
-          </div>
+        <table class="ui basic table">
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th><p id="filename"></p></th>
+              <th><i class="file image outline icon"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Width</td>
+              <td><p id="imageWidth"></p></td>
+              <td><i class="resize horizontal icon"></i></td>
+            </tr>
+            <tr>
+              <td>Height</td>
+              <td><p id="imageHeight"></p></td>
+              <td><i class="resize vertical icon"></i></td>
+            </tr>
+            <tr>
+              <td>Total Pixels</td>
+              <td><p id="imageTotalPixels"></p></td>
+              <td><i class="grid layout icon"></i></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
       </div>
 
       <div class="ui container segment">
@@ -110,6 +111,32 @@
             <p>TANDEM is an application that generates quantitative image and text data from files submitted by the user.</p>
             <p>The TANDEM output is intended to be used as source material for data visualization, quantitative analysis, and distant reading of multimodal print objects.</p>
       </div>
+
+      <div class="ui divider"></div>
+
+      <div class="ui vertical footer segment">
+          <div class="ui container">
+            <div class="ui stackable divided equal height stackable grid">
+              <div class="three wide column">
+                <h4 class="ui header">About the Author</h4>
+                <div class="ui link list">
+                  <a href="#" class="item">Placeholder</a>
+                </div>
+              </div>
+              <div class="three wide column">
+                <h4 class="ui header">About the Project</h4>
+                <div class="ui link list">
+                  <a href="#" class="item">Placeholder</a>
+                </div>
+              </div>
+              <div class="seven wide column">
+                <h4 class="ui header">License</h4>
+                <p>The MIT License (MIT)</p>
+                <p>Copyright <i class="copyright icon"></i>2016 Christopher Vitale</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
 </body>
 

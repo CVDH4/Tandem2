@@ -143,3 +143,29 @@
 //   color.textContent = rgba;
 // }
 // canvas.addEventListener('mousemove', pick);
+
+
+// iterate over all pixels
+  // for (var i = 0, n = data.length; i < n; i += 4) {
+  //   var red = data[i];
+  //   var green = data[i + 1];
+  //   var blue = data[i + 2];
+  //   var alpha = data[i + 3];
+  //   pixels[pixel] = [red, green, blue];
+  //   pixel++;
+  // }
+  // var csvContent = "data:text/csv;charset=utf-8,";
+  // var data = pixels;
+  // data.forEach(function(infoArray, index) {
+  //   dataString = infoArray.join(",");
+  //   csvContent += index < data.length ? dataString + "\n" : dataString;
+  // });
+
+  // var encodedUri = encodeURI(csvContent);
+  // window.open(encodedUri);
+  // var link = document.createElement("a");
+  // link.setAttribute("href", encodedUri);
+  // link.setAttribute("download", "my_banana.csv");
+  // document.body.appendChild(link); // Required for FF
+
+  // link.click(); // This will download the data file named "my_data.csv".
