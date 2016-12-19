@@ -33,3 +33,4 @@ chart:chart
 ostrio:autoform-files
 ostrio:templatehelpers
 iron:router
+ecwyne:mathjs

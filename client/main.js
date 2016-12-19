@@ -1,6 +1,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Chart } from 'meteor/chart:chart';
+import 'meteor/ecwyne:mathjs'
 import './main.html';
 
 Items = new Mongo.Collection('items');
@@ -73,21 +74,24 @@ Meteor.startup(function() {
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
   var imageData = img.data;
-  var pixels = (0, 0, 600, 600);
+  var pixels = (0, 0, img.width, img.height);
   var r, g, b, a;
 
   var fileNameGrabber = (img.src).split("/");
   var fileName = fileNameGrabber[fileNameGrabber.length - 1];
 
+  var modeRGB = math.mode(pixels);
+
   img.onload = function() {
     ctx.drawImage(img, 0, 0);
-    ctx.createImageData(600, 600);
+    ctx.createImageData(img.width, img.height);
     img.style.display = 'none';
 
     document.getElementById("filename").innerHTML = (fileName);
     document.getElementById("imageHeight").innerHTML = (img.naturalHeight);
     document.getElementById("imageWidth").innerHTML = (img.naturalWidth);
     document.getElementById("imageTotalPixels").innerHTML = (img.naturalWidth * img.naturalHeight);
+    document.getElementById("modeRGB").innerHTML = (modeRGB);
 
     while(pixels){
        imageData[4*pixels+0] = r; // Red value
@@ -133,7 +137,7 @@ document.body.onload = addElement;
 function drawImage(imageObj) {
 
     var codepanel = document.getElementById('code');
-    var canvas = document.getElementById('myCanvas');
+    var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
     var imageX = 69;
     var imageY = 50;
@@ -153,19 +157,12 @@ function drawImage(imageObj) {
       var green = data[i + 1];
       var blue = data[i + 2];
       var alpha = data[i + 3];
-       pixels[pixel] = red + "," + green + "," + blue + ",";
+       pixels[pixel] = "[" + red + "," + green + "," + blue + "]";
        pixel++; 
     }
 
-    var averageRed = 0;
-    for(var i = 0; i < red.length; i++) {
-        averageRed += red[i];
-    }
-    var avg = averageRed / red.length;
-
-    console.log(avg);
-
-    // codepanel.innerHTML = pixels.join();
+    codepanel.innerHTML = pixels.join();
+    console.log(math.mode(pixels));
 
     var x = 20;
     var y = 20;
@@ -204,6 +201,3 @@ function drawImage(imageObj) {
 
     link.click(); // This will download the data file named "my_data.csv".
 });
-
-// - - - - - - OCR - - - - - - //
-

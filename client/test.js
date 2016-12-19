@@ -169,3 +169,32 @@
   // document.body.appendChild(link); // Required for FF
 
   // link.click(); // This will download the data file named "my_data.csv".
+
+// Possible mode
+// function sortByFrequencyAndFilter(pixels)
+// {
+//     var newArray = [];
+//     var freq = {};
+
+//     //Count Frequency of Occurances
+//     var i=pixels.length-1;
+//     for (var i;i>-1;i--)
+//     {
+//         var value = pixels[i];
+//         freq[value]==null?freq[value]=1:freq[value]++;
+//     }
+
+//     //Create Array of Filtered Values
+//     for (var value in freq)
+//     {
+//         newArray.push(value);
+//     }
+
+//     //Define Sort Function and Return Sorted Results
+//     function compareFreq(a,b)
+//     {
+//         return freq[b]-freq[a];
+//     }
+
+//     return newArray.sort(compareFreq);
+// }
