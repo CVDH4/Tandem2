@@ -74,13 +74,11 @@ Meteor.startup(function() {
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
   var imageData = img.data;
-  var pixels = (0, 0, img.width, img.height);
+  var pixelsFirst = (0, 0, img.width, img.height);
   var r, g, b, a;
 
   var fileNameGrabber = (img.src).split("/");
   var fileName = fileNameGrabber[fileNameGrabber.length - 1];
-
-  var modeRGB = math.mode(pixels);
 
   img.onload = function() {
     ctx.drawImage(img, 0, 0);
@@ -91,13 +89,12 @@ Meteor.startup(function() {
     document.getElementById("imageHeight").innerHTML = (img.naturalHeight);
     document.getElementById("imageWidth").innerHTML = (img.naturalWidth);
     document.getElementById("imageTotalPixels").innerHTML = (img.naturalWidth * img.naturalHeight);
-    document.getElementById("modeRGB").innerHTML = (modeRGB);
 
-    while(pixels){
-       imageData[4*pixels+0] = r; // Red value
-       imageData[4*pixels+1] = g; // Green value
-       imageData[4*pixels+2] = b; // Blue value
-       imageData[4*pixels+3] = a; // Alpha value
+    while(pixelsFirst){
+       imageData[4*pixelsFirst+0] = r; // Red value
+       imageData[4*pixelsFirst+1] = g; // Green value
+       imageData[4*pixelsFirst+2] = b; // Blue value
+       imageData[4*pixelsFirst+3] = a; // Alpha value
     }
     img.data = imageData; // And here we attache it back (not needed cf. update)
     context.putImageData(image, 0, 0);
@@ -158,11 +155,20 @@ function drawImage(imageObj) {
       var blue = data[i + 2];
       var alpha = data[i + 3];
        pixels[pixel] = "[" + red + "," + green + "," + blue + "]";
-       pixel++; 
+       pixel++
     }
 
-    codepanel.innerHTML = pixels.join();
-    console.log(math.mode(pixels));
+    function notBlack(value) {
+      return value !== "[0,0,0]";
+    }
+
+    var filteredPixels = pixels.filter(notBlack);
+
+    codepanel.innerHTML = filteredPixels.join();
+
+    var modeRGB = math.mode(filteredPixels);
+
+    document.getElementById("modeRGB").innerHTML = (modeRGB);
 
     var x = 20;
     var y = 20;
@@ -185,6 +191,7 @@ function drawImage(imageObj) {
   imageObj.onload = function() {
     drawImage(this);
   };
+
   imageObj.src = '../images/placekitten.jpg';
 
   var csvContent = "data:text/csv;charset=utf-8,";
