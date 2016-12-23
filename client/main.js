@@ -136,8 +136,8 @@ function drawImage(imageObj) {
     var codepanel = document.getElementById('code');
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
-    var imageX = 69;
-    var imageY = 50;
+    var imageX = 0;
+    var imageY = 0;
     var imageWidth = imageObj.width;
     var imageHeight = imageObj.height;
     var pixels = new Array();
