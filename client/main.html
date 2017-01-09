@@ -8,7 +8,7 @@
 <body> 
     <!-- This is the menu block. -->
       <div class="ui container padded">
-        <div class="ui top fixed menu">
+        <div class="ui top menu">
             <a class="header item">
               <h1>TANDEM</h1>
             </a>
@@ -37,41 +37,8 @@
         <p>Uploaded Files</p>
           {{> uploadedInfo uploads }}
       </div> -->
-
-      <div class="ui container segment">
-          <select id="langsel" onchange="window.lastFile && recognizeFile(window.lastFile)">
-          <option value='eng'     selected> English                </option>
-          <option value='enm'     > English (Old)         </option>
-          <option value='meme'     > Internet Meme                </option>
-          <option value='equ'     > Math                  </option>
-          <option value='spa'     > Spanish               </option>
-          </select>
-
-          <button class="ui labeled icon button" onclick="recognizeFile('../images/AlphabetBook_Page_09.jpg')">
-            <i class="right arrow icon"></i>
-                Extract OCR Data
-          </button>
-
-          <input type="file" onchange="recognizeFile(window.lastFile=this.files[0])">
-
-          <div id="log"></div>
-      </div>
       
       <div class="ui container segment">
-          <div class="ui header">
-            Color Picker
-          </div>
-          <p>The first three digits represent the Red (R), Green (G), and Blue (B) values that combine to create the full spectrum of visual color possibilities. These values are measured from 0 to 255. The final digit represents the alpha value, or the level of opacity for the image.</p>
-           <p><i class="help circle icon"></i>Hover over a part of the image to view the color value for that particular pixel.</p>
-          <div id="color" style="border-radius: 5px; width: 100%;"></div> 
-
-          <div class="ui divider"></div>
-
-          <div id="div1">The text above has been created dynamically.</div>
-          <canvas id="canvas" width="1000" height="1000"></canvas>
-
-<!--               <canvas id="myCanvas" width="600" height="600"></canvas>
- -->              
 
       <div id="imageStats"> 
         <div class="ui header">Image Statistics</div>
@@ -111,7 +78,51 @@
         <div class="ui header">Raw RGB Values</div>
         <div id="code"></div>
 
+        <div class="ui divider"></div>
+
+        <div class="ui container">
+          {{> exportData }}
+        </div>
+
       </div>
+
+      <div class="ui container segment">
+
+          <div class="ui header">
+            Color Picker
+          </div>
+          <p>The first three digits represent the Red (R), Green (G), and Blue (B) values that combine to create the full spectrum of visual color possibilities. These values are measured from 0 to 255. The final value represents the alpha value, or the level of opacity for the image.</p>
+           <p><i class="help circle icon"></i>Hover over a part of the image to view the color value for that particular pixel.</p>
+          <div id="color" style="border-radius: 5px; width: 100%;"></div> 
+
+          <div class="ui divider"></div>
+
+          <div id="div1"></div>
+          <canvas id="canvas" width="1000" height="1000"></canvas>
+
+      </div>
+<!--               <canvas id="myCanvas" width="600" height="600"></canvas>
+ -->              
+
+      <div class="ui container segment">
+          <select id="langsel" onchange="window.lastFile && recognizeFile(window.lastFile)">
+          <option value='eng'     selected> English                </option>
+          <option value='enm'     > English (Old)         </option>
+          <option value='meme'     > Internet Meme                </option>
+          <option value='equ'     > Math                  </option>
+          <option value='spa'     > Spanish               </option>
+          </select>
+
+          <button class="ui labeled icon button" onclick="recognizeFile('../images/AlphabetBook_Page_09.jpg')">
+            <i class="right arrow icon"></i>
+                Extract OCR Data
+          </button>
+
+          <input type="file" onchange="recognizeFile(window.lastFile=this.files[0])">
+
+          <div id="log"></div>
+      </div>
+
 
       {{/if}}
 
@@ -167,12 +178,24 @@
                     <label>{{> name }}</label> <br/>
                     {{> size }} B<br>
                     {{#if _id}}
-                        <a class="btn btn-danger deleteUpload">Delete</a>
+                        <a class="ui button deleteUpload">Delete</a>
                     {{/if}}
                 </li>
             {{/each}}
         </ul>
     </div>
+</template>
+
+<template name="exportData">
+    <a class="ui labeled icon button export-data">
+        <i class="labeled refresh icon"></i>
+        Refresh
+    </a>
+    {{#with exportReady}}
+    <a href="{{this.url}}" target="_blank" class="exported-data">Download Export</a>
+    {{else}}
+    <span>Export Not Ready</span>
+    {{/with}}
 </template>
 
 <!-- Meteor Templates End -->

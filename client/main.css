@@ -104,3 +104,6 @@ progress[value="1"] {
     margin-top: 20px;
     border-radius: 5px;
 }
+#canvas {
+  cursor:crosshair;
+}

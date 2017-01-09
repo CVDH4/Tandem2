@@ -3,6 +3,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { Chart } from 'meteor/chart:chart';
 import 'meteor/ecwyne:mathjs'
 import './main.html';
+import 'meteor/lablancas:export-csv';
 
 Items = new Mongo.Collection('items');
 Uploads = new Mongo.Collection('uploads');
@@ -42,6 +43,28 @@ Router.map(function () {
   });
 });
 
+Template.exportData.events({
+    'click .export-data': function(events, template){
+        Session.set(template.data.name + "-exported", undefined);
+
+        Meteor.call("exportcsv-export", template.data.uploads.fetch(), function(err, exported){
+
+            if(err)
+                console.log(err);
+            else
+                Session.set(template.data.name + "-exported", exported);
+
+    });
+}});
+
+Template.exportData.helpers({
+    exportReady: function(){
+
+        var exported = Session.get(this.name + "-exported");
+
+        return exported ? ExportCSV.Exports.findOne(exported._id) : undefined;
+}});
+
 Template.body.helpers({
   myFormData: function() {
     return { directoryName: '.uploads', prefix: this._id, _id: this._id }
@@ -69,7 +92,7 @@ Template.uploadedInfo.events({
 
 Meteor.startup(function() {
   var img = new Image();
-  img.src = '../images/placekitten.jpg';
+  img.src = '../images/img066.jpg';
 
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
@@ -192,7 +215,7 @@ function drawImage(imageObj) {
     drawImage(this);
   };
 
-  imageObj.src = '../images/placekitten.jpg';
+  imageObj.src = '../images/img066.jpg';
 
   var csvContent = "data:text/csv;charset=utf-8,";
     pixels.forEach(function(infoArray, index){
@@ -207,4 +230,6 @@ function drawImage(imageObj) {
     document.body.appendChild(link); // Required for FF
 
     link.click(); // This will download the data file named "my_data.csv".
+
+  console.log(csvContent);
 });
