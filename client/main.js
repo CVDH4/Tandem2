@@ -1,9 +1,10 @@
+import './main.html';
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Chart } from 'meteor/chart:chart';
 import 'meteor/ecwyne:mathjs'
-import './main.html';
 import 'meteor/lablancas:export-csv';
+import Tesseract from 'tesseract.js';
 
 Items = new Mongo.Collection('items');
 Uploads = new Mongo.Collection('uploads');
@@ -53,7 +54,6 @@ Template.exportData.events({
                 console.log(err);
             else
                 Session.set(template.data.name + "-exported", exported);
-
     });
 }});
 
@@ -232,4 +232,62 @@ function drawImage(imageObj) {
     link.click(); // This will download the data file named "my_data.csv".
 
   console.log(csvContent);
+
+// OCR
+
+window.progressUpdate = function (packet){
+  var log = document.getElementById('log');
+
+  if(log.firstChild && log.firstChild.status === packet.status){
+    if('progress' in packet){
+      var progress = log.firstChild.querySelector('progress')
+      progress.value = packet.progress
+    }
+  }else{
+    var line = document.createElement('div');
+    line.status = packet.status;
+    var status = document.createElement('div')
+    status.className = 'status'
+    status.appendChild(document.createTextNode(packet.status))
+    line.appendChild(status)
+
+    if('progress' in packet){
+      var progress = document.createElement('progress')
+      progress.value = packet.progress
+      progress.max = 1
+      line.appendChild(progress)
+    }
+
+
+    if(packet.status == 'done'){
+      var pre = document.createElement('pre')
+      pre.appendChild(document.createTextNode(packet.data.text))
+      line.innerHTML = ''
+      line.appendChild(pre)
+
+    }
+
+    log.insertBefore(line, log.firstChild)
+  }
+}
+
+window.recognizeFile = function (file){
+  document.querySelector("#log").innerHTML = ''
+
+  var recognize = require('../node_modules/tesseract.js')
+
+  Tesseract.recognize(file, {
+    lang: document.querySelector('#langsel').value
+  })
+    .progress(function(packet){
+      console.info(packet)
+      progressUpdate(packet)
+
+    })
+    .then(function(data){
+      console.log(data)
+      progressUpdate({ status: 'done', data: data })
+    })
+}
+
 });

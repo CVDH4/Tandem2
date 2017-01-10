@@ -107,3 +107,7 @@ progress[value="1"] {
 #canvas {
   cursor:crosshair;
 }
+
+#imageCanvas {
+  cursor:crosshair;
+}

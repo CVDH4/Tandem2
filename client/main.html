@@ -1,6 +1,7 @@
 <head>
   <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
   <!-- // <script src="../Chart.js"></script> -->
+  <script src='https://cdn.rawgit.com/naptha/tesseract.js/a01d2a2/dist/tesseract.js'></script>
   <title>TANDEM</title>
   <style>@import 'https://fonts.googleapis.com/css?family=Kanit:300,400|Roboto:300,900';</style>
 </head>
@@ -25,12 +26,43 @@
     <!-- This is what appears when you login. -->
         {{#if currentUser}}
       <div class="ui padded container segment">
-          <div id="upload">
+        <div class="ui header">Get Started</div>
+          <div class="field">
+              <p>Select an image from your computer. The image will be added to the browser canvas for you to preview as data is generated.</p>
+              <div class="ui action input">
+                  <label class="ui icon primary labeled button btn-file">
+                    Browse...
+                      <i class="upload icon"></i>
+                      <input type="file" class="ui file input" id="imageLoader">
+                  </label>
+              </div>
+          </div>
+
+          <!-- <div id="upload">
             {{> uploadTemplate}}
             <br>
             <p margin="10px" align="center">or</p>
             {{> dropzone formData=myFormData }}
+          </div> -->
+      </div>
+
+      <div class="ui container segment">
+
+          <div class="ui header">
+            Color Picker
           </div>
+          <p>The first three digits represent the Red (R), Green (G), and Blue (B) values that combine to create the full spectrum of visual color possibilities. These values are measured from 0 to 255. The final value represents the alpha value, or the level of opacity for the image.</p>
+           <p><i class="help circle icon"></i>Hover over a part of the image to view the color value for that particular pixel.</p>
+          <div id="color" style="border-radius: 5px; width: 100%;"></div> 
+
+          <div class="ui divider"></div>
+
+          <div id="div1"></div>
+      
+          {{> uploadedImage}}
+
+          <canvas id="canvas"></canvas>
+
       </div>
 
       <!-- <div class="ui container padded segment">
@@ -86,25 +118,10 @@
 
       </div>
 
-      <div class="ui container segment">
-
-          <div class="ui header">
-            Color Picker
-          </div>
-          <p>The first three digits represent the Red (R), Green (G), and Blue (B) values that combine to create the full spectrum of visual color possibilities. These values are measured from 0 to 255. The final value represents the alpha value, or the level of opacity for the image.</p>
-           <p><i class="help circle icon"></i>Hover over a part of the image to view the color value for that particular pixel.</p>
-          <div id="color" style="border-radius: 5px; width: 100%;"></div> 
-
-          <div class="ui divider"></div>
-
-          <div id="div1"></div>
-          <canvas id="canvas" width="1000" height="1000"></canvas>
-
-      </div>
 <!--               <canvas id="myCanvas" width="600" height="600"></canvas>
  -->              
 
-      <div class="ui container segment">
+      <!-- <div class="ui container segment">
           <select id="langsel" onchange="window.lastFile && recognizeFile(window.lastFile)">
           <option value='eng'     selected> English                </option>
           <option value='enm'     > English (Old)         </option>
@@ -113,15 +130,15 @@
           <option value='spa'     > Spanish               </option>
           </select>
 
-          <button class="ui labeled icon button" onclick="recognizeFile('../images/AlphabetBook_Page_09.jpg')">
+          <button class="ui labeled icon button" onclick="recognizeFile()">
             <i class="right arrow icon"></i>
                 Extract OCR Data
           </button>
 
-          <input type="file" onchange="recognizeFile(window.lastFile=this.files[0])">
+          <input type="file" onchange="OCR()">
 
           <div id="log"></div>
-      </div>
+      </div> -->
 
 
       {{/if}}
@@ -143,13 +160,14 @@
               <div class="three wide column">
                 <h4 class="ui header">About the Author</h4>
                 <div class="ui link list">
-                  <a href="#" class="item">Placeholder</a>
+                  <a href="https://commons.gc.cuny.edu/members/christophervitale/" class="item">CUNY Commons Bio</a>
+                  <a href="https://github.com/CVDH4/" class="item">GitHub</a>
                 </div>
               </div>
               <div class="three wide column">
                 <h4 class="ui header">About the Project</h4>
                 <div class="ui link list">
-                  <a href="#" class="item">Placeholder</a>
+                  <a href="http://www.dhtandem.com" class="item">Tandem 1.0</a>
                 </div>
               </div>
               <div class="seven wide column">
@@ -160,7 +178,6 @@
             </div>
           </div>
         </div>
-
 </body>
 
 <!-- Meteor Templates Start -->
@@ -186,6 +203,123 @@
     </div>
 </template>
 
+<template name="uploadedImage">
+
+  <canvas id="imageCanvas"></canvas>
+
+  <script>
+  var imageLoader = document.getElementById('imageLoader');
+      imageLoader.addEventListener('change', handleImage, false);
+  var canvas = document.getElementById('imageCanvas');
+  var ctx = canvas.getContext('2d');
+  var imageData = img.data;
+  var pixelsFirst = (0, 0, img.width, img.height);
+  var r, g, b, a;
+
+  var fileNameGrabber = (img.src).split("/");
+  var fileName = fileNameGrabber[fileNameGrabber.length - 1];
+
+  function handleImage(e){
+      var reader = new FileReader();
+      reader.onload = function(event){
+          var img = new Image();
+          img.onload = function(){
+              canvas.width = img.width;
+              canvas.height = img.height;
+              ctx.createImageData(img.width, img.height);
+              ctx.drawImage(img,0,0);
+
+              document.getElementById("filename").innerHTML = (fileName);
+              document.getElementById("imageHeight").innerHTML = (img.naturalHeight);
+              document.getElementById("imageWidth").innerHTML = (img.naturalWidth);
+              document.getElementById("imageTotalPixels").innerHTML = (img.naturalWidth * img.naturalHeight);
+
+              while(pixelsFirst){
+             imageData[4*pixelsFirst+0] = r; // Red value
+             imageData[4*pixelsFirst+1] = g; // Green value
+             imageData[4*pixelsFirst+2] = b; // Blue value
+             imageData[4*pixelsFirst+3] = a; // Alpha value
+
+          }
+
+            var codepanel = document.getElementById('code');
+            var imageX = 0;
+            var imageY = 0;
+            var imageWidth = img.width;
+            var imageHeight = img.height;
+            var pixels = new Array();
+            var pixel = 0; 
+
+            ctx.drawImage(img, imageX, imageY);
+
+            var imageData = ctx.getImageData(imageX, imageY, imageWidth, imageHeight);
+            var data = imageData.data;
+
+            // iterate over all pixels
+            for(var i = 0, n = data.length; i < n; i += 4) {
+              var red = data[i];
+              var green = data[i + 1];
+              var blue = data[i + 2];
+              var alpha = data[i + 3];
+               pixels[pixel] = "[" + red + "," + green + "," + blue + "]";
+               pixel++
+            }
+
+            function notBlack(value) {
+              return value !== "[0,0,0]";
+            }
+
+            var filteredPixels = pixels.filter(notBlack);
+
+            codepanel.innerHTML = filteredPixels.join();
+
+            var modeRGB = math.mode(filteredPixels);
+
+            document.getElementById("modeRGB").innerHTML = (modeRGB);
+
+            var x = 20;
+            var y = 20;
+            var red = data[((imageWidth * y) + x) * 4];
+            var green = data[((imageWidth * y) + x) * 4 + 1];
+            var blue = data[((imageWidth * y) + x) * 4 + 2];
+            var alpha = data[((imageWidth * y) + x) * 4 + 3];
+
+            for(var y = 0; y < imageHeight; y++) {
+              for(var x = 0; x < imageWidth; x++) {
+                var red = data[((imageWidth * y) + x) * 4];
+                var green = data[((imageWidth * y) + x) * 4 + 1];
+                var blue = data[((imageWidth * y) + x) * 4 + 2];
+                var alpha = data[((imageWidth * y) + x) * 4 + 3];         
+              }
+            }
+
+          img.data = imageData; // And here we attache it back (not needed cf. update)
+          ctx.putImageData(image, 0, 0);
+
+          console.log(imageData);
+
+          }
+          img.src = event.target.result;
+      }
+      reader.readAsDataURL(e.target.files[0]);     
+
+      var color = document.getElementById('color');
+        function pick(event) {
+          var x = event.layerX;
+          var y = event.layerY;
+          var pixel = ctx.getImageData(x, y, 5, 5);
+          var data = pixel.data;
+          var rgba = 'rgba(' + data[0] + ',' + data[1] +
+                     ',' + data[2] + ',' + (data[3] / 255) + ')';
+          color.style.background =  rgba;
+          color.textContent = rgba;
+        }
+        canvas.addEventListener('mousemove', pick);
+
+  };
+  </script>
+</template>
+
 <template name="exportData">
     <a class="ui labeled icon button export-data">
         <i class="labeled refresh icon"></i>
@@ -197,52 +331,3 @@
     <span>Export Not Ready</span>
     {{/with}}
 </template>
-
-<!-- Meteor Templates End -->
-
-
-<!-- SANDBOX Start -->
-<!-- 
-      <div class="ui container segment">
-        <div align="center" style="width:50%">
-          <canvas id="canvas2" height="450" width="600"></canvas>
-        </div>
-      </div>
-
-      //<script>
-      //     var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-      //     var lineChartData = {
-      //       labels : ["January","February","March","April","May","June","July"],
-      //       datasets : [
-      //         {
-      //           label: "My First dataset",
-      //           fillColor : "rgba(220,220,220,0.2)",
-      //           strokeColor : "rgba(220,220,220,1)",
-      //           pointColor : "rgba(220,220,220,1)",
-      //           pointStrokeColor : "#fff",
-      //           pointHighlightFill : "#fff",
-      //           pointHighlightStroke : "rgba(220,220,220,1)",
-      //           data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-      //         },
-      //         {
-      //           label: "My Second dataset",
-      //           fillColor : "rgba(151,187,205,0.2)",
-      //           strokeColor : "rgba(151,187,205,1)",
-      //           pointColor : "rgba(151,187,205,1)",
-      //           pointStrokeColor : "#fff",
-      //           pointHighlightFill : "#fff",
-      //           pointHighlightStroke : "rgba(151,187,205,1)",
-      //           data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),
-      //           randomScalingFactor()]
-      //         }
-      //       ]
-      //     }
-      //   window.onload = function(){
-      //     var ctx = document.getElementById("canvas2").getContext("2d");
-      //     window.myLine = new Chart(ctx).Line(lineChartData, {
-      //       responsive: true
-      //     });
-      //   }
-      // </script> -->
-
-<!-- SANDBOX END -->
