@@ -9,7 +9,7 @@ A version of this project was completed as a Capstone Thesis and Digital Project
 
 #### Steps to Reproduce
 
-1. Begin by installing [Meteor](https://www.meteor.com/) on your machine. (This will also check to ensure that [Node.js(https://nodejs.org/en/) is also installed on your machine.
+1. Begin by installing [Meteor](https://www.meteor.com/) on your machine. (This will also check to ensure that [Node.js](https://nodejs.org/en/) is also installed on your machine.
 2. Clone or download Tandem2 from this [Github]( https://github.com/CVDH4/Tandem2).
 3. Locate the directory where the cloned/downloaded application resides. 
 4. Open Terminal and enter the following command:
@@ -18,13 +18,13 @@ A version of this project was completed as a Capstone Thesis and Digital Project
 cd XYZDirectory/Tandem2
 ```
 
-Then run the application:
+Once in the directory, you will run the application using this simple command:
 
 ```
 meteor
 ```
 
-If successfully installed, the application will run on localhost:3000.
+If successfully installed, the application will run on localhost:3000. Note that login authorization via external providers like GitHub and Twitter require the generation of an API key. Regular account setup will be fully functional.
 
 On your first attempt to run, meteor will automatically downloaded necessary dependencies or alert you to resolve missing meteor packages or npm packages. You may need to troubleshoot missing packages and npm modules.
 
