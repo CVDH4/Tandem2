@@ -58,17 +58,19 @@ Node 0.10.43 for Meteor 1.3.x and earlier
 If you use a mis-matched version of Node when deploying your application, you will encounter errors!
 You can then run the application by invoking node with a ROOT_URL, and MONGO_URL. These instructions are also available in the README file found in the root of the bundle you built above.
 
-```cd my_build_bundle_directory
+```
+cd my_build_bundle_directory
 (cd programs/server && npm install)
 MONGO_URL=mongodb://localhost:27017/myapp ROOT_URL=http://my-app.com node main.js
 ```
+
 > * ROOT_URL is the base URL for your Meteor project
 > * MONGO_URL is a Mongo connection string URI supplied by the MongoDB provider.
 
 
->Unless you have a specific need to roll your own hosting environment, the other options here are definitely easier, and probably make for a better setup than doing everything from scratch. Operating a Meteor app in a way that it works correctly for everyone can be complex, and Galaxy handles a lot of the specifics like routing clients to the right containers and handling coordinated version updates for you.
+> Unless you have a specific need to roll your own hosting environment, the other options here are definitely easier, and probably make for a better setup than doing everything from scratch. Operating a Meteor app in a way that it works correctly for everyone can be complex, and Galaxy handles a lot of the specifics like routing clients to the right containers and handling coordinated version updates for you.
 
->Galaxy is a distributed system that runs on Amazon AWS. If you understand what it takes to run Meteor apps correctly and just how Galaxy works, you’ll come to appreciate Galaxy’s value, and that it will save you a lot of time and trouble. Most large Meteor apps run on Galaxy today, and many of them have switched from custom solutions they used prior to Galaxy’s launch.
+> Galaxy is a distributed system that runs on Amazon AWS. If you understand what it takes to run Meteor apps correctly and just how Galaxy works, you’ll come to appreciate Galaxy’s value, and that it will save you a lot of time and trouble. Most large Meteor apps run on Galaxy today, and many of them have switched from custom solutions they used prior to Galaxy’s launch.
 
 At the time of deposition, the author of this project recommends the use of Galaxy for a live deployment of this application for the best results.
 
