@@ -61,11 +61,6 @@
           <canvas id="canvas"></canvas>
 
       </div>
-
-      <!-- <div class="ui container padded segment">
-        <p>Uploaded Files</p>
-          {{> uploadedInfo uploads }}
-      </div> -->
       
       <div class="ui container segment">
 
@@ -160,22 +155,6 @@
     {{> upload_semanticUI multiple=true }}
 </template> -->
 
-<!-- <template name="uploadedInfo">
-    <div class="documentList">
-        <ul class="list-inline">
-            {{#each this}}
-                <li class="documentItem">
-                    <a href=".uploads/{{ path }}"><img src="{{ src }}"></a><br/>
-                    <label>{{> name }}</label> <br/>
-                    {{> size }} B<br>
-                    {{#if _id}}
-                        <a class="ui button deleteUpload">Delete</a>
-                    {{/if}}
-                </li>
-            {{/each}}
-        </ul>
-    </div>
-</template> -->
 
 <template name="uploadedImage">
 
